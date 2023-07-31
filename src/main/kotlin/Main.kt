@@ -1,6 +1,12 @@
 import data.TasksRepositoryMemory
+import menu.Actions
 import menu.taskActions
 
+/**
+ * Функция, которая выводит на консоль примитивное меню.
+ * Получает ответ 1-7 и возвращает его,
+ * вызывается ниже из  main()
+ */
 fun renderMenu(): Int {
     println("=========================================================")
     val actions = listOf(
@@ -17,12 +23,13 @@ fun renderMenu(): Int {
 fun main() {
     println("Otus Todo List\n")
     val repository = TasksRepositoryMemory()
+
     while (true) {
         val action = renderMenu()
         try {
             val func = taskActions[Actions.values()[action - 1]]
             func?.call(repository)
-        } catch (e: ArrayIndexOutOfBoundsException) {
+        } catch (e: Exception) {
             //just skip
         }
     }

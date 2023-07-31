@@ -24,7 +24,7 @@ class Test1 {
     }
 
     @Test
-    //Сделать тест добавления задачи и появления ее в списке
+    //Сделать тест добавления задачи и появления ее в списке ????????????????? Зачем повтор теста 1
     fun test2(){
         val testRepository = TasksRepositoryMemory()
         var task1 = Task(name = "test_task_name", priority = Priority.values().random())
@@ -49,7 +49,7 @@ class Test1 {
         taskToComplete.completed = true
         Assertions.assertTrue(testRepository.getTasks(true).contains(taskToComplete))
         Assertions.assertTrue(testRepository.getTasks(true).contains(taskToNotComplete))
-        Assertions.assertTrue(!testRepository.getTasks(false).contains(taskToComplete))
+        Assertions.assertFalse(testRepository.getTasks(false).contains(taskToComplete))
         Assertions.assertTrue(testRepository.getTasks(false).contains(taskToNotComplete))
         //////////////////////////////////////////////////////////////////////////////////////////
 //        testRepository.getTasks(true).forEach {
