@@ -5,6 +5,7 @@ plugins {
     application
     jacoco
     id("io.qameta.allure") version "2.11.2"
+    id("org.jlleitschuh.gradle.ktlint") version "11.5.1"
 }
 
 group = "org.example"
@@ -18,17 +19,20 @@ dependencies {
     testImplementation(kotlin("test"))
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.0")
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.3")
-    // Эта одна строка заменяет три внизу - специально сделано Jupiter
-//    testImplementation ("org.junit.jupiter:junit-jupiter:5.7.1")
-//    testImplementation ("org.junit.jupiter:junit-jupiter-api:5.7.1")
-//    testRuntimeOnly ("org.junit.jupiter:junit-jupiter-engine:5.7.1")
-
     testImplementation("io.mockk:mockk:1.13.5")
     implementation("org.slf4j:slf4j-simple:2.0.7")
+    // https://mvnrepository.com/artifact/org.spekframework.spek2/spek-dsl-jvm
+    testImplementation("org.spekframework.spek2:spek-dsl-jvm:2.0.19")
+    // https://mvnrepository.com/artifact/org.spekframework.spek2/spek-runner-junit5
+    testImplementation("org.spekframework.spek2:spek-runner-junit5:2.0.19")
+
+
 }
 
 tasks.test {
-    useJUnitPlatform()
+    useJUnitPlatform{
+        includeEngines = setOf("spek2")
+    }
     finalizedBy("jacocoTestReport", "allureReport")
 }
 

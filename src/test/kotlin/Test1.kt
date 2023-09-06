@@ -6,13 +6,10 @@ import org.junit.jupiter.api.Test
 
 class Test1 {
 
-//    companion object{
-//        val test = TasksRepositoryMemory()
-//    }
 
     @Test
     //Сделать тест добавления задачи и появления ее в списке
-    fun test1(){
+    fun addTaskTest(){
         val testRepository = TasksRepositoryMemory()
         val nameOfTestTask = "test_task_name"
         val sizeTaskListBefore = testRepository.getTasks().size
@@ -25,7 +22,7 @@ class Test1 {
 
     @Test
     //Сделать тест добавления задачи и появления ее в списке ????????????????? Зачем повтор теста 1
-    fun test2(){
+    fun addTaskTest2(){
         val testRepository = TasksRepositoryMemory()
         var task1 = Task(name = "test_task_name", priority = Priority.values().random())
         val sizeTaskListBefore = testRepository.getTasks().size
@@ -39,7 +36,7 @@ class Test1 {
     //Завершить задачу и проверить корректность работы фильтра по завершенным задачам
     //но без ТЗ тяжело судить о корректности реализации фильтра, но наименования LIST_TASKS и LIST_NON_COMPLETED_TASKS подсказывают,
     // что фильтр подразумевается только по НЕзавершенным задачам
-    fun test3(){
+    fun taskToCompleteTest(){
         val testRepository = TasksRepositoryMemory()
         var taskToComplete = Task(name = "taskToComplete", priority = Priority.values().random())
         var taskToNotComplete = Task(name = "taskToNotComplete", priority = Priority.values().random())
@@ -51,14 +48,9 @@ class Test1 {
         Assertions.assertTrue(testRepository.getTasks(true).contains(taskToNotComplete))
         Assertions.assertFalse(testRepository.getTasks(false).contains(taskToComplete))
         Assertions.assertTrue(testRepository.getTasks(false).contains(taskToNotComplete))
-        //////////////////////////////////////////////////////////////////////////////////////////
-//        testRepository.getTasks(true).forEach {
-//            println(it)
-//        }
-//        println("======")
-//        testRepository.getTasks(false).forEach {
-//            println(it)
-//        }
+
+
+        
 
     }
 
