@@ -21,7 +21,8 @@ class Test1 {
     }
 
     @Test
-    //Сделать тест добавления задачи и появления ее в списке ????????????????? Зачем повтор теста 1
+    //Сделать тест добавления задачи и появления ее в списке ????????????????? Зачем повтор теста 1 -
+    // чуть-чуть другая логика теста
     fun addTaskTest2(){
         val testRepository = TasksRepositoryMemory()
         var task1 = Task(name = "test_task_name", priority = Priority.values().random())

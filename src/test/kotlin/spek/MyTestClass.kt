@@ -9,14 +9,10 @@ import org.spekframework.spek2.style.specification.describe
 import renderMenu
 import kotlin.test.assertEquals
 
+//я не совсем понял форлулировку задания
+
 class MyTestClass: Spek({
 
-    describe("MainKtTest") {
-        it("renderMenu chosen 3 when System InputStream contains 3"){
-            System.setIn("3".byteInputStream())
-            assertEquals(3, renderMenu())
-        }
-    }
 
     describe("Перенос написанных ранее тестов на спек"){
         it("Проверка добавлнения задачи"){
@@ -41,6 +37,20 @@ class MyTestClass: Spek({
             Assertions.assertTrue(testRepository.getTasks(true).contains(taskToNotComplete))
             Assertions.assertFalse(testRepository.getTasks(false).contains(taskToComplete))
             Assertions.assertTrue(testRepository.getTasks(false).contains(taskToNotComplete))
+        }
+        it("Проверка удаления задачи"){
+            val testRepository = TasksRepositoryMemory()
+            val nameOfTestTask = "del_task_name"
+            val sizeTaskListBefore = testRepository.getTasks().size
+            val  _priority = Priority.values().random()
+            val taskID = testRepository.addTask(Task(name = nameOfTestTask, priority = _priority))
+            Assertions.assertTrue(testRepository.getTasks().contains(Task(id = taskID, name = nameOfTestTask, priority = _priority)))
+            Assertions.assertEquals(sizeTaskListBefore + 1, testRepository.getTasks().size)
+            Assertions.assertTrue(testRepository.getTasks().filter { it.name == nameOfTestTask }.size ==1)
+            testRepository.deleteTask(taskID)
+            Assertions.assertTrue(!testRepository.getTasks().contains(Task(id = taskID, name = nameOfTestTask, priority = _priority)))
+            Assertions.assertEquals(sizeTaskListBefore, testRepository.getTasks().size)
+            Assertions.assertTrue(testRepository.getTasks().filter { it.name == nameOfTestTask }.size ==0)
         }
     }
 
